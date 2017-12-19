@@ -8,7 +8,7 @@ Collection of Dockerfile for build Docker images
     - `docker build -t <docker_hub_account>/msbuild2017:v15.4 .`
   - Create and Run a container, eg.
     - `docker run -it -m 2GB --name buildtools <docker_hub_account>/msbuild2017:v15.4 cmd`
-
+    
 ## References
 - [Install Build Tools into a Container](https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container)
 - [Advanced Example for Containers](https://docs.microsoft.com/en-us/visualstudio/install/advanced-build-tools-container)
