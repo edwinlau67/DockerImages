@@ -3,11 +3,11 @@ Collection of Dockerfile for build Docker images
 
 ## List of Docker Images
 - [msbuild2017](msbuild2017)
-  - VS2017 Build Tools Version 15.4
-  - Build image with docker tag (v15.4), eg.
-    - `docker build -t <docker_hub_account>/msbuild2017:v15.4 .`
+  - VS2017 Build Tools Version 15.5.x
+  - Build image with docker tag (v15.5), eg.
+    - `docker build -t <docker_hub_account>/msbuild2017:v15.5 .`
   - Create and Run a container, eg.
-    - `docker run -it -m 2GB --name buildtools <docker_hub_account>/msbuild2017:v15.4 cmd`
+    - `docker run -it -m 2GB --name buildtools <docker_hub_account>/msbuild2017:v15.5 cmd`
     
 ## References
 - [Install Build Tools into a Container](https://docs.microsoft.com/en-us/visualstudio/install/build-tools-container)
