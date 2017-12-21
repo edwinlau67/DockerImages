@@ -1,9 +1,9 @@
 # Dockerfile for Build Tools 2017 for compiling C/C++ Program + Fonts for Graphviz
 # 
-# VERSION:        0.1
+# VERSION:        0.2
 #
 # Windows:        Windows Server 10.0.14393.1770
-# VS Build Tools: 15.4.27004.2005
+# VS Build Tools: 15.5.x latest
 #
 # Use a specific tagged image. Tags can be changed, though that is unlikely for most images.
 # You could also use the immutable tag @sha256:d841bd78721c74f9b88e2700f5f3c2d66b54cb855b8acb4ab2c627a76a46301d
@@ -15,11 +15,11 @@ COPY Tools C:\\TEMP\\Tools
 # Use PowerShell commands to download, validate hashes, etc.
 SHELL ["powershell.exe", "-ExecutionPolicy", "Bypass", "-Command", "$ErrorActionPreference='Stop'; $ProgressPreference='SilentlyContinue'; $VerbosePreference = 'Continue';"]
 
-# Download Build Tools 15.4.27004.2005 and other useful tools.
-ENV VS_BUILDTOOLS_URI=https://aka.ms/vs/15/release/6e8971476/vs_buildtools.exe \
-    VS_BUILDTOOLS_SHA256=D482171C7F2872B6B9D29B116257C6102DBE6ABA481FAE4983659E7BF67C0F88 \
-    NUGET_URI=https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe \
-    NUGET_SHA256=4C1DE9B026E0C4AB087302FF75240885742C0FAA62BD2554F913BBE1F6CB63A0
+# Download Build Tools 15.5.x latest and other useful tools.
+ENV VS_BUILDTOOLS_URI=https://aka.ms/vs/15/release/vs_buildtools.exe \
+    VS_BUILDTOOLS_SHA256=BF25FC6B2ADA63E191ED5FB45C64C0980DEEE5054C0C28256221B876C2C3E139 \
+    NUGET_URI=https://dist.nuget.org/win-x86-commandline/v4.4.1/nuget.exe \
+    NUGET_SHA256=781930966CF218CA01560C11F99F3C7423AA734C3BBE480179B85A7EBA69D9B2
 
 # Download tools to C:\Bin and install Build Tools excluding workloads and components with known issues.
 RUN New-Item -Path C:\Bin -Type Directory | Out-Null; \
@@ -35,7 +35,7 @@ RUN New-Item -Path C:\Bin -Type Directory | Out-Null; \
     Fetch -Uri 'https://aka.ms/vscollect.exe' -Path C:\TEMP\vscollect.exe; \
     $p = Start-Process -Wait -PassThru -FilePath C:\TEMP\Tools\AddFonts.cmd -ArgumentList 'C:\TEMP\Tools\Fonts\ > NUL 2>&1'; \
     if (($ret = $p.ExitCode) -and ($ret -ne 0)) { throw ('Install fonts for Graphviz failed with exit code 0x{0:x}' -f $ret) } \
-    $p = Start-Process -Wait -PassThru -FilePath C:\TEMP\vs_buildtools.exe -ArgumentList '--quiet --wait --norestart --nocache --installPath C:\BuildTools --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.140 --add Microsoft.Component.VC.Runtime.UCRTSDK --add Microsoft.VisualStudio.Component.VC.ATLMFC --add Microsoft.Net.Component.4.6.1.SDK --add Microsoft.Net.Component.4.6.1.TargetingPack --add Microsoft.Net.Component.4.TargetingPack --add Microsoft.Net.ComponentGroup.TargetingPacks.Common --remove Microsoft.VisualStudio.Component.Windows10SDK.16299.Desktop --remove Microsoft.VisualStudio.Component.Windows10SDK.16299.UWP --remove Microsoft.VisualStudio.Component.Windows10SDK.16299.UWP.Native --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 --remove Microsoft.VisualStudio.Component.Windows81SDK'; \
+    $p = Start-Process -Wait -PassThru -FilePath C:\TEMP\vs_buildtools.exe -ArgumentList '--quiet --wait --norestart --nocache --installPath C:\BuildTools --add Microsoft.VisualStudio.Workload.NetCoreBuildTools --add Microsoft.VisualStudio.Workload.VCTools --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.VC.140 --add Microsoft.Component.VC.Runtime.UCRTSDK --add Microsoft.VisualStudio.Component.VC.ATLMFC --add Microsoft.Net.Component.4.6.1.SDK --add Microsoft.Net.Component.4.6.1.TargetingPack --add Microsoft.Net.Component.4.TargetingPack --add Microsoft.Net.ComponentGroup.TargetingPacks.Common--remove Microsoft.VisualStudio.Component.Windows10SDK.16299.Desktop --remove Microsoft.VisualStudio.Component.Windows10SDK.16299.UWP --remove Microsoft.VisualStudio.Component.Windows10SDK.16299.UWP.Native --remove Microsoft.VisualStudio.Component.Windows10SDK.10240 --remove Microsoft.VisualStudio.Component.Windows10SDK.10586 --remove Microsoft.VisualStudio.Component.Windows10SDK.14393 --remove Microsoft.VisualStudio.Component.Windows81SDK'; \
     if (($ret = $p.ExitCode) -and ($ret -ne 3010)) { C:\TEMP\vscollect.exe; throw ('Install failed with exit code 0x{0:x}' -f $ret) }
 
 # Restore default shell for Windows containers.
