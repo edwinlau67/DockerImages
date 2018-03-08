@@ -1,9 +1,9 @@
 # Dockerfile for Build Tools 2017 for compiling C/C++ Program + Fonts for Graphviz
 # 
-# VERSION:        0.2
+# VERSION:        0.3
 #
 # Windows:        Windows Server 10.0.14393.1770
-# VS Build Tools: 15.5.x latest
+# VS Build Tools: 15.6.x latest
 #
 # Use a specific tagged image. Tags can be changed, though that is unlikely for most images.
 # You could also use the immutable tag @sha256:d841bd78721c74f9b88e2700f5f3c2d66b54cb855b8acb4ab2c627a76a46301d
