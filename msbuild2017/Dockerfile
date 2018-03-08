@@ -15,9 +15,9 @@ COPY Tools C:\\TEMP\\Tools
 # Use PowerShell commands to download, validate hashes, etc.
 SHELL ["powershell.exe", "-ExecutionPolicy", "Bypass", "-Command", "$ErrorActionPreference='Stop'; $ProgressPreference='SilentlyContinue'; $VerbosePreference = 'Continue';"]
 
-# Download Build Tools 15.5.x latest and other useful tools.
+# Download Build Tools 15.6.x latest and other useful tools.
 ENV VS_BUILDTOOLS_URI=https://aka.ms/vs/15/release/vs_buildtools.exe \
-    VS_BUILDTOOLS_SHA256=BF25FC6B2ADA63E191ED5FB45C64C0980DEEE5054C0C28256221B876C2C3E139 \
+    VS_BUILDTOOLS_SHA256=AFA03929181FF29FC1156BE5B7123D424A11BB13D328CC79C63C1D0F315EC0E8 \
     NUGET_URI=https://dist.nuget.org/win-x86-commandline/v4.4.1/nuget.exe \
     NUGET_SHA256=781930966CF218CA01560C11F99F3C7423AA734C3BBE480179B85A7EBA69D9B2
 
